@@ -11,18 +11,18 @@ gui.ResetOnSpawn = false
 gui.Parent = game:GetService("CoreGui")
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 280, 0, 150)  -- Smaller size
-frame.Position = UDim2.new(0.5, -140, 0.5, -75)  -- Centered
-frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)  -- Darker background for elegance
+frame.Size = UDim2.new(0, 280, 0, 150)
+frame.Position = UDim2.new(0.5, -140, 0.5, -75)
+frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 frame.BorderSizePixel = 0
 frame.Parent = gui
 
 Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
 local border = Instance.new("UIStroke", frame)
-border.Thickness = 3  -- Thicker border for a glowing effect
+border.Thickness = 3
 border.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 border.Color = Color3.fromRGB(255, 0, 0)
-border.Transparency = 0.5  -- Glowing effect
+border.Transparency = 0.5
 
 -- Dragging
 local dragging = false
@@ -119,8 +119,8 @@ Instance.new("UICorner", teleportBtn).CornerRadius = UDim.new(0, 6)
 -- Notification Function
 local function showNotification(message, callback)
 	local notif = Instance.new("TextLabel", gui)
-	notif.Size = UDim2.new(0, 220, 0, 30)  -- Smaller size
-	notif.Position = UDim2.new(0.5, -110, 0.05, 0)  -- Centered at the top
+	notif.Size = UDim2.new(0, 220, 0, 30)
+	notif.Position = UDim2.new(0.5, -110, 1, -60)
 	notif.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 	notif.TextColor3 = Color3.new(1, 1, 1)
 	notif.Font = Enum.Font.GothamBold
@@ -148,43 +148,45 @@ local function showNotification(message, callback)
 	end)
 end
 
--- Job ID Notification
-local jobIdNotifFrame = Instance.new("Frame", gui)
-jobIdNotifFrame.Size = UDim2.new(0, 220, 0, 30)  -- Small notification size
-jobIdNotifFrame.Position = UDim2.new(0.5, -110, 0.1, 0)  -- Positioned below the title
-jobIdNotifFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-jobIdNotifFrame.BorderSizePixel = 0
-jobIdNotifFrame.BackgroundTransparency = 1  -- Set to transparent
-Instance.new("UICorner", jobIdNotifFrame).CornerRadius = UDim.new(0, 8)
+-- RGB Job ID Text
+local rgbJobId = Instance.new("TextLabel")
+rgbJobId.Name = "RGBJobId"
+rgbJobId.Parent = gui
+rgbJobId.Size = UDim2.new(0, 200, 0, 25)
+rgbJobId.Position = UDim2.new(0.5, -100, 0.5, -100)
+rgbJobId.BackgroundTransparency = 1
+rgbJobId.Text = "Current Job ID: " .. game.JobId
+rgbJobId.Font = Enum.Font.GothamBold
+rgbJobId.TextSize = 12
+rgbJobId.TextColor3 = Color3.new(1, 1, 1)
 
-local jobIdNotifText = Instance.new("TextLabel", jobIdNotifFrame)
-jobIdNotifText.Text = "Current Job ID: " .. game.JobId
-jobIdNotifText.Size = UDim2.new(1, -25, 1, 0)
-jobIdNotifText.Position = UDim2.new(0, 10, 0, 0)
-jobIdNotifText.BackgroundTransparency = 1
-jobIdNotifText.Font = Enum.Font.GothamBold
-jobIdNotifText.TextSize = 12
-jobIdNotifText.TextColor3 = Color3.new(1, 1, 1)
-jobIdNotifText.TextXAlignment = Enum.TextXAlignment.Left
+local hue2 = 0
+game:GetService("RunService").RenderStepped:Connect(function()
+	hue2 = (hue2 + 0.01) % 1
+	rgbJobId.TextColor3 = Color3.fromHSV(hue2, 1, 1)
+end)
 
--- Add orange glowing effect to Job ID text
-local stroke = Instance.new("UIStroke", jobIdNotifText)
-stroke.Thickness = 2
-stroke.Color = Color3.fromRGB(255, 165, 0)  -- Orange color
-stroke.Transparency = 0.5  -- Glowing effect with some transparency
-
-local copyBtn = Instance.new("TextButton", jobIdNotifFrame)
-copyBtn.Text = "Copy"
-copyBtn.Size = UDim2.new(0, 40, 0, 20)
-copyBtn.Position = UDim2.new(1, -50, 0, 5)
+-- Copy Button beside RGB Job ID
+local copyBtn = Instance.new("TextButton")
+copyBtn.Name = "CopyButton"
+copyBtn.Parent = gui
+copyBtn.Size = UDim2.new(0, 60, 0, 25)
+copyBtn.Position = UDim2.new(0.5, 110, 0.02, 0)
 copyBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+copyBtn.Text = "Copy"
 copyBtn.Font = Enum.Font.GothamBold
 copyBtn.TextSize = 12
 copyBtn.TextColor3 = Color3.new(1, 1, 1)
-Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(1, 0)
+copyBtn.AutoButtonColor = true
+Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0, 6)
+
 copyBtn.MouseButton1Click:Connect(function()
-	setclipboard(game.JobId)
-	showNotification("Job ID copied!")
+	if setclipboard then
+		setclipboard(game.JobId)
+		showNotification("Copied Job ID!")
+	else
+		showNotification("Clipboard not supported.")
+	end
 end)
 
 -- Button Logic

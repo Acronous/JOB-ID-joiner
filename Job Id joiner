@@ -1,3 +1,4 @@
+-- Existing Services and Variables
 local TeleportService = game:GetService("TeleportService")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -10,17 +11,18 @@ gui.ResetOnSpawn = false
 gui.Parent = game:GetService("CoreGui")
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 320, 0, 200)
-frame.Position = UDim2.new(0.5, -160, 0.5, -100)
-frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+frame.Size = UDim2.new(0, 280, 0, 150)  -- Smaller size
+frame.Position = UDim2.new(0.5, -140, 0.5, -75)  -- Centered
+frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)  -- Darker background for elegance
 frame.BorderSizePixel = 0
 frame.Parent = gui
 
-Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
 local border = Instance.new("UIStroke", frame)
-border.Thickness = 2
+border.Thickness = 3  -- Thicker border for a glowing effect
 border.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 border.Color = Color3.fromRGB(255, 0, 0)
+border.Transparency = 0.5  -- Glowing effect
 
 -- Dragging
 local dragging = false
@@ -56,37 +58,22 @@ end)
 -- Title
 local title = Instance.new("TextLabel", frame)
 title.Text = "Job ID Joiner"
-title.Size = UDim2.new(1, -40, 0, 30)
+title.Size = UDim2.new(1, -20, 0, 25)
 title.Position = UDim2.new(0, 10, 0, 0)
 title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
-title.TextSize = 20
+title.TextSize = 18
 title.TextColor3 = Color3.new(1, 1, 1)
 
 -- Credits
 local credit = Instance.new("TextLabel", frame)
 credit.Text = "Made by Acronous"
-credit.Size = UDim2.new(1, 0, 0, 18)
-credit.Position = UDim2.new(0, 0, 0, 28)
+credit.Size = UDim2.new(1, 0, 0, 15)
+credit.Position = UDim2.new(0, 0, 0, 30)
 credit.BackgroundTransparency = 1
 credit.TextColor3 = Color3.fromRGB(160, 160, 160)
 credit.Font = Enum.Font.Gotham
-credit.TextSize = 12
-
--- Close Button
-local closeBtn = Instance.new("TextButton", frame)
-closeBtn.Text = "X"
-closeBtn.Size = UDim2.new(0, 30, 0, 30)
-closeBtn.Position = UDim2.new(1, -35, 0, 5)
-closeBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
-closeBtn.TextColor3 = Color3.new(1, 1, 1)
-closeBtn.Font = Enum.Font.GothamBold
-closeBtn.TextSize = 14
-closeBtn.AutoButtonColor = true
-Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 6)
-closeBtn.MouseButton1Click:Connect(function()
-	gui:Destroy()
-end)
+credit.TextSize = 10
 
 -- Job ID TextBox
 local jobBox = Instance.new("TextBox", frame)
@@ -94,35 +81,50 @@ jobBox.PlaceholderText = "Enter Job ID"
 jobBox.Text = ""
 jobBox.ClearTextOnFocus = false
 jobBox.Size = UDim2.new(0.8, 0, 0, 30)
-jobBox.Position = UDim2.new(0.1, 0, 0.45, 0)
-jobBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+jobBox.Position = UDim2.new(0.1, 0, 0.5, 0)
+jobBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 jobBox.TextColor3 = Color3.new(1, 1, 1)
 jobBox.BorderSizePixel = 0
 jobBox.Font = Enum.Font.Code
 jobBox.TextSize = 14
 Instance.new("UICorner", jobBox).CornerRadius = UDim.new(0, 6)
 
+-- Close Button
+local closeBtn = Instance.new("TextButton", frame)
+closeBtn.Text = "X"
+closeBtn.Size = UDim2.new(0, 25, 0, 25)
+closeBtn.Position = UDim2.new(1, -30, 0, 5)
+closeBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+closeBtn.TextColor3 = Color3.new(1, 1, 1)
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 12
+closeBtn.AutoButtonColor = true
+Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 6)
+closeBtn.MouseButton1Click:Connect(function()
+	gui:Destroy()
+end)
+
 -- Teleport Button
 local teleportBtn = Instance.new("TextButton", frame)
 teleportBtn.Text = "Teleport"
-teleportBtn.Size = UDim2.new(0.6, 0, 0, 35)
-teleportBtn.Position = UDim2.new(0.2, 0, 0.7, 0)
+teleportBtn.Size = UDim2.new(0.6, 0, 0, 30)
+teleportBtn.Position = UDim2.new(0.2, 0, 0.75, 0)
 teleportBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
 teleportBtn.TextColor3 = Color3.new(1, 1, 1)
 teleportBtn.BorderSizePixel = 0
 teleportBtn.Font = Enum.Font.GothamBold
-teleportBtn.TextSize = 16
+teleportBtn.TextSize = 14
 Instance.new("UICorner", teleportBtn).CornerRadius = UDim.new(0, 6)
 
 -- Notification Function
 local function showNotification(message, callback)
 	local notif = Instance.new("TextLabel", gui)
-	notif.Size = UDim2.new(0, 250, 0, 40)
-	notif.Position = UDim2.new(0.5, -125, 0.85, 0)
-	notif.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	notif.Size = UDim2.new(0, 220, 0, 30)  -- Smaller size
+	notif.Position = UDim2.new(0.5, -110, 0.05, 0)  -- Centered at the top
+	notif.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 	notif.TextColor3 = Color3.new(1, 1, 1)
 	notif.Font = Enum.Font.GothamBold
-	notif.TextSize = 14
+	notif.TextSize = 12
 	notif.Text = message
 	notif.BorderSizePixel = 0
 	notif.BackgroundTransparency = 0.1
@@ -139,12 +141,37 @@ local function showNotification(message, callback)
 		stroke.Color = Color3.fromHSV(hue, 1, 1)
 	end)
 
-	task.delay(3, function()
+	task.delay(2, function()
 		conn:Disconnect()
 		notif:Destroy()
 		if callback then callback() end
 	end)
 end
+
+-- Job ID Notification
+local jobIdNotifFrame = Instance.new("Frame", gui)
+jobIdNotifFrame.Size = UDim2.new(0, 220, 0, 30)  -- Small notification size
+jobIdNotifFrame.Position = UDim2.new(0.5, -110, 0.1, 0)  -- Positioned below the title
+jobIdNotifFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+jobIdNotifFrame.BorderSizePixel = 0
+jobIdNotifFrame.BackgroundTransparency = 1  -- Set to transparent
+Instance.new("UICorner", jobIdNotifFrame).CornerRadius = UDim.new(0, 8)
+
+local jobIdNotifText = Instance.new("TextLabel", jobIdNotifFrame)
+jobIdNotifText.Text = "Current Job ID: " .. game.JobId
+jobIdNotifText.Size = UDim2.new(1, -25, 1, 0)
+jobIdNotifText.Position = UDim2.new(0, 10, 0, 0)
+jobIdNotifText.BackgroundTransparency = 1
+jobIdNotifText.Font = Enum.Font.GothamBold
+jobIdNotifText.TextSize = 12
+jobIdNotifText.TextColor3 = Color3.new(1, 1, 1)
+jobIdNotifText.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Add orange glowing effect to Job ID text
+local stroke = Instance.new("UIStroke", jobIdNotifText)
+stroke.Thickness = 2
+stroke.Color = Color3.fromRGB(255, 165, 0)  -- Orange color
+stroke.Transparency = 0.5  -- Glowing effect with some transparency
 
 -- Button Logic
 teleportBtn.MouseButton1Click:Connect(function()
@@ -159,178 +186,21 @@ teleportBtn.MouseButton1Click:Connect(function()
 		end)
 		if not success then
 			showNotification("Invalid Job ID.")
-		end
-	end)
-end)
-
--- RGB Loop for title + border
-local hue = 0
-game:GetService("RunService").RenderStepped:Connect(function()
-	hue = (hue + 0.01) % 1
-	local color = Color3.fromHSV(hue, 1, 1)
-	title.TextColor3 = color
-	border.Color = color
-end)local TeleportService = game:GetService("TeleportService")
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local placeId = 126884695634066
-
--- GUI Setup
-local gui = Instance.new("ScreenGui")
-gui.Name = "JobIdJoinerGui"
-gui.ResetOnSpawn = false
-gui.Parent = game:GetService("CoreGui")
-
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 320, 0, 200)
-frame.Position = UDim2.new(0.5, -160, 0.5, -100)
-frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-frame.BorderSizePixel = 0
-frame.Parent = gui
-
-Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
-local border = Instance.new("UIStroke", frame)
-border.Thickness = 2
-border.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-border.Color = Color3.fromRGB(255, 0, 0)
-
--- Dragging
-local dragging = false
-local dragInput, dragStart, startPos
-
-frame.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 then
-		dragging = true
-		dragStart = input.Position
-		startPos = frame.Position
-
-		input.Changed:Connect(function()
-			if input.UserInputState == Enum.UserInputState.End then
-				dragging = false
-			end
-		end)
-	end
-end)
-
-frame.InputChanged:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseMovement then
-		dragInput = input
-	end
-end)
-
-game:GetService("UserInputService").InputChanged:Connect(function(input)
-	if input == dragInput and dragging then
-		local delta = input.Position - dragStart
-		frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-	end
-end)
-
--- Title
-local title = Instance.new("TextLabel", frame)
-title.Text = "Job ID Joiner"
-title.Size = UDim2.new(1, -40, 0, 30)
-title.Position = UDim2.new(0, 10, 0, 0)
-title.BackgroundTransparency = 1
-title.Font = Enum.Font.GothamBold
-title.TextSize = 20
-title.TextColor3 = Color3.new(1, 1, 1)
-
--- Credits
-local credit = Instance.new("TextLabel", frame)
-credit.Text = "Made by Acronous"
-credit.Size = UDim2.new(1, 0, 0, 18)
-credit.Position = UDim2.new(0, 0, 0, 28)
-credit.BackgroundTransparency = 1
-credit.TextColor3 = Color3.fromRGB(160, 160, 160)
-credit.Font = Enum.Font.Gotham
-credit.TextSize = 12
-
--- Close Button
-local closeBtn = Instance.new("TextButton", frame)
-closeBtn.Text = "X"
-closeBtn.Size = UDim2.new(0, 30, 0, 30)
-closeBtn.Position = UDim2.new(1, -35, 0, 5)
-closeBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
-closeBtn.TextColor3 = Color3.new(1, 1, 1)
-closeBtn.Font = Enum.Font.GothamBold
-closeBtn.TextSize = 14
-closeBtn.AutoButtonColor = true
-Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 6)
-closeBtn.MouseButton1Click:Connect(function()
-	gui:Destroy()
-end)
-
--- Job ID TextBox
-local jobBox = Instance.new("TextBox", frame)
-jobBox.PlaceholderText = "Enter Job ID"
-jobBox.Text = ""
-jobBox.ClearTextOnFocus = false
-jobBox.Size = UDim2.new(0.8, 0, 0, 30)
-jobBox.Position = UDim2.new(0.1, 0, 0.45, 0)
-jobBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-jobBox.TextColor3 = Color3.new(1, 1, 1)
-jobBox.BorderSizePixel = 0
-jobBox.Font = Enum.Font.Code
-jobBox.TextSize = 14
-Instance.new("UICorner", jobBox).CornerRadius = UDim.new(0, 6)
-
--- Teleport Button
-local teleportBtn = Instance.new("TextButton", frame)
-teleportBtn.Text = "Teleport"
-teleportBtn.Size = UDim2.new(0.6, 0, 0, 35)
-teleportBtn.Position = UDim2.new(0.2, 0, 0.7, 0)
-teleportBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-teleportBtn.TextColor3 = Color3.new(1, 1, 1)
-teleportBtn.BorderSizePixel = 0
-teleportBtn.Font = Enum.Font.GothamBold
-teleportBtn.TextSize = 16
-Instance.new("UICorner", teleportBtn).CornerRadius = UDim.new(0, 6)
-
--- Notification Function
-local function showNotification(message, callback)
-	local notif = Instance.new("TextLabel", gui)
-	notif.Size = UDim2.new(0, 250, 0, 40)
-	notif.Position = UDim2.new(0.5, -125, 0.85, 0)
-	notif.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-	notif.TextColor3 = Color3.new(1, 1, 1)
-	notif.Font = Enum.Font.GothamBold
-	notif.TextSize = 14
-	notif.Text = message
-	notif.BorderSizePixel = 0
-	notif.BackgroundTransparency = 0.1
-	Instance.new("UICorner", notif).CornerRadius = UDim.new(0, 8)
-
-	local stroke = Instance.new("UIStroke", notif)
-	stroke.Thickness = 2
-	stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-
-	local hue = 0
-	local conn
-	conn = game:GetService("RunService").RenderStepped:Connect(function()
-		hue = (hue + 0.02) % 1
-		stroke.Color = Color3.fromHSV(hue, 1, 1)
-	end)
-
-	task.delay(3, function()
-		conn:Disconnect()
-		notif:Destroy()
-		if callback then callback() end
-	end)
-end
-
--- Button Logic
-teleportBtn.MouseButton1Click:Connect(function()
-	local jobId = jobBox.Text
-	if jobId == "" then
-		showNotification("Insert Job ID")
-		return
-	end
-	showNotification("Teleporting to Job ID...", function()
-		local success, err = pcall(function()
-			TeleportService:TeleportToPlaceInstance(placeId, jobId, player)
-		end)
-		if not success then
-			showNotification("Invalid Job ID.")
+		else
+			-- Now create the copy button after teleportation logic
+			local copyBtn = Instance.new("TextButton", jobIdNotifFrame)
+			copyBtn.Text = "Copy"
+			copyBtn.Size = UDim2.new(0, 40, 0, 20)
+			copyBtn.Position = UDim2.new(1, -50, 0, 5)
+			copyBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+			copyBtn.Font = Enum.Font.GothamBold
+			copyBtn.TextSize = 12
+			copyBtn.TextColor3 = Color3.new(1, 1, 1)
+			Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(1, 0)
+			copyBtn.MouseButton1Click:Connect(function()
+				setclipboard(jobId)
+				showNotification("Job ID copied!")
+			end)
 		end
 	end)
 end)
